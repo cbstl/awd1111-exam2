@@ -12,6 +12,7 @@ const schema = Joi.object().keys({
   price: Joi.number()
 });
 
+// Checks if Joi validation came back with an error
 async function handleJoiResult(joiResult) {
   if (!joiResult.error) {
     return joiResult.value;
@@ -22,11 +23,13 @@ async function handleJoiResult(joiResult) {
   }
 }
 
+// Validates a single product (object) against Joi schema
 async function validateSingleProduct(product) {
   const joiResult = schema.validate(product);
   return handleJoiResult(joiResult);
 }
 
+// Validates multiple products (array of objects) against Joi schema
 async function validateArrayOfProducts(arr) {
   const validatedArray = [];
   arr.forEach(product => {
