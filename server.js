@@ -13,16 +13,14 @@ function nameNotFoundMessage(name) {
   return `Product with name ${name} not found`
 }
 
-// Returns a single product from the database as a JSON object
-// Find the product based on the provided ID
-// If the ID is invalid or the product is not found, return a 404 response
+// Returns all of the products in the database as a JSON array
 server.get(`${path}/list`, async (req, res) => {
   const result = await product.listAllProducts();
   res.json(result);
 });
 
 // Returns a single product from the database as a JSON object
-// Find th product based on the provided name
+// Find the product based on the provided ID
 // If the product is not found, return a 404 response
 server.get(`${path}/id/:productId`, async (req, res) => {
   const result = await product.getProductById(req.params.productId);
