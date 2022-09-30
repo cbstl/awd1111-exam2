@@ -2,6 +2,7 @@ const express = require('express');
 const https = require('https');
 const server = express();
 const { ObjectId } = require('mongodb');
+const { insertNewProduct } = require('./routes/api/product.js');
 
 const product = require('./routes/api/product.js');
 const path = '/api/product';
@@ -46,6 +47,7 @@ server.get(`${path}/name/:productName`, async (req, res) => {
 // Inserts a new product into the database
 // Returns a JSON object containing a message and the new productId
 server.put(`${path}/new`, async (req, res) => {
+  const insertResp = await product.insertNewProduct(req.body);
   if (insertResp) {
     const result = {
         message: `Product ID ${req.params.productId} has been updated.`,
@@ -65,7 +67,7 @@ server.put(`${path}/:productId`, async (req, res) => {
     res.status(404).send(INVALID_ID_MESSAGE)
   }
   try {
-    await product.updateProductWithId(req.params.productId);
+    await product.updateProductWithId(req.params.productId, req.body);
     const result = {
         message: `Product ID ${req.params.productId} has been updated.`,
         productId: req.params.productId
