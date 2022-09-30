@@ -62,14 +62,14 @@ async function getProductByName(productName) {
   const query = {
     name: productName
   };
-  const mongoResult = await storedb.findOne(collectionName, query);
+  const mongoResult = await storedb.findOne(collectionName, body);
   return validateSingleProduct(mongoResult);
 };
 
 // PUT /api/product/new
-async function insertNewProduct(query) {
-  if (validateSingleProduct(query)) {
-    const insertResp = await storedb.insertOne(collectionName, query);
+async function insertNewProduct(body) {
+  if (validateSingleProduct(body)) {
+    const insertResp = await storedb.insertOne(collectionName, body);
     return insertResp;
   } else {
     return;
@@ -77,11 +77,11 @@ async function insertNewProduct(query) {
 };
 
 // PUT /api/product/:productId
-async function updateProductWithId(productId, query) {
-  if (validateSingleProduct(query)) {
+async function updateProductWithId(productId, body) {
+  if (validateSingleProduct(body)) {
     const fullQuery = {
       _id: ObjectId(productId),
-      ...query
+      ...body
     };
     await storedb.updateOne(collectionName, fullQuery);
   } else {
