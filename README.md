@@ -1,2 +1,2 @@
-# awd1111-exam2
+# Store API
 API for an e-commerce store
