@@ -1,2 +1,2 @@
 # Store API
-API for an e-commerce store
+Node/Mongo API for an e-commerce store
